@@ -1,0 +1,6 @@
+CompileFlags:
+  Add:
+    - --target=arm-none-eabi
+    - -isystem/usr/lib/gcc/arm-none-eabi/12.2.1/include
+    - -isystem/usr/lib/gcc/arm-none-eabi/12.2.1/include-fixed
+    - -isystem/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include

@@ -16,15 +16,23 @@
 #include "board.h"
 #include "ch.h"
 #include "hal.h"
+#include <string.h>
 
 /* UART communication protocol state */
 protocol_t proto;
+
+void shine_send_debug(const char *msg) {
+    size_t len = strlen(msg);
+    if (len > MAX_PAYLOAD_SIZE) len = MAX_PAYLOAD_SIZE;
+    protoTx(CMD_LED_DEBUG, (const unsigned char *)msg, len, 1);
+}
 
 void protoInit(protocol_t *proto, void (*callback)(const message_t *)) {
   proto->previousId = 0;
   proto->callback = callback;
   proto->state = STATE_SYNC_1;
   proto->errors = 0;
+  shine_send_debug("boot ok");
 }
 
 static uint8_t msgId = 0;

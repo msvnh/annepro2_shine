@@ -116,7 +116,8 @@ LDSCRIPT = HT32F52342_AP2.ld
 # setting.
 CSRC = $(ALLCSRC) \
        $(TESTSRC) \
-       main.c
+       main.c \
+       $(CHIBIOS)/os/hal/lib/streams/chprintf.c
 
 CPPSRC =
 
@@ -127,7 +128,8 @@ ASMSRC = $(ALLASMSRC)
 ASMXSRC = $(ALLXASMSRC)
 
 # Inclusion directories.
-INCDIR = $(CONFDIR) $(ALLINC) $(TESTINC)
+INCDIR = $(CONFDIR) $(ALLINC) $(TESTINC) \
+         $(CHIBIOS)/os/hal/lib/streams
 
 # Define C warning options here.
 CWARN = -Wall -Wextra -Wundef -Wstrict-prototypes
@@ -144,7 +146,8 @@ CPPWARN = -Wall -Wextra -Wundef
 #
 
 # List all user C define here, like -D_DEBUG=1
-UDEFS =
+# UDEFS = 
+UDEFS = -DDEBUG_SHINE
 
 # Define ASM defines here
 UADEFS =
