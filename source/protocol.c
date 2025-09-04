@@ -21,7 +21,10 @@
 /* UART communication protocol state */
 protocol_t proto;
 
-void shine_send_debug(const char *msg) {
+/* Single shot log flag */
+// static bool g_sent_hello = false;
+
+static void shine_send_debug(const char *msg) {
     size_t len = strlen(msg);
     if (len > MAX_PAYLOAD_SIZE) len = MAX_PAYLOAD_SIZE;
     protoTx(CMD_LED_DEBUG, (const unsigned char *)msg, len, 1);
@@ -32,7 +35,6 @@ void protoInit(protocol_t *proto, void (*callback)(const message_t *)) {
   proto->callback = callback;
   proto->state = STATE_SYNC_1;
   proto->errors = 0;
-  shine_send_debug("boot ok");
 }
 
 static uint8_t msgId = 0;
@@ -54,6 +56,11 @@ void protoTx(uint8_t cmd, const unsigned char *buf, int payloadSize,
 
 static inline void messageReceived(protocol_t *proto) {
   if (proto->buffer.msgId != proto->previousId) {
+    // if (!g_sent_hello) {
+    //   shine_send_debug("QMK-Shine link up - First Rx parsed.");
+    //   g_sent_hello = true;
+    // }
+
     /* It's not a resend / duplicate */
     proto->callback(&proto->buffer);
     proto->previousId = proto->buffer.msgId;
