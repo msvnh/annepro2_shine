@@ -240,6 +240,11 @@ static inline void setStickyMono(const message_t *msg) {
   handleStickyEnabled();
 }
 
+static inline void setAndSendDebugLogs(void) {
+  // #TODO: Handle log processing
+  sendDebug(NULL, 0);
+}
+
 static inline void checkStickyExists(void) {
   // extra var because we probably want to
   // change global vars only in atomic operations
@@ -363,6 +368,11 @@ void commandCallback(const message_t *msg) {
     break;
   case CMD_LED_COLOR_SET_MONO:
     setColorMono(msg);
+    break;
+
+  /* Handle sending debug logs to MCU */
+  case CMD_LED_GET_DEBUG:
+    setAndSendDebugLogs();
     break;
 
   /* Handle sticky keys */

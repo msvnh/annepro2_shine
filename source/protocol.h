@@ -49,6 +49,9 @@ enum {
   CMD_LED_COLOR_SET_ROW = 0x32,
   CMD_LED_COLOR_SET_MONO = 0x33,
 
+    /* Get LED debug logs */
+    CMD_LED_GET_DEBUG = 0x34,
+
   /* LED -> Main */
   /* Payload with data to send over HID */
   CMD_LED_DEBUG = 0x40,
